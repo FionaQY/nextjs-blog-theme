@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import NetlifyIdentityProvider from './NetlifyIdentityProvider';
 
 export default function Header({ name }) {
   return (
@@ -8,6 +9,7 @@ export default function Header({ name }) {
         <Link href="/">
           {name}
         </Link>
+        <NetlifyIdentityProvider />
       </p>
     </header>
   );

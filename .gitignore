@@ -40,3 +40,5 @@ yarn-error.log*
 
 # netlify
 .netlify
+.env
+yarn.lock
