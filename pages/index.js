@@ -7,8 +7,32 @@ import Layout, { GradientBackground } from '../components/Layout';
 import ArrowIcon from '../components/ArrowIcon';
 import { getGlobalData } from '../utils/global-data';
 import SEO from '../components/SEO';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import netlifyIdentity from "netlify-identity-widget"
 
 export default function Index({ posts, globalData }) {
+  const [user, setUser] = useState(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    netlifyIdentity.init();
+
+    netlifyIdentity.on('login', (user) => {
+      setUser(user);
+      router.push('/protected'); // Redirect to protected page after login
+    });
+
+    netlifyIdentity.on('logout', () => {
+      setUser(null);
+    });
+
+    return () => {
+      netlifyIdentity.off('login');
+      netlifyIdentity.off('logout');
+    };
+  }, [router]);
+  
   return (
     <Layout>
       <SEO title={globalData.name} description={globalData.blogTitle} />
