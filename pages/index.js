@@ -18,6 +18,11 @@ export default function Index({ posts, globalData }) {
   useEffect(() => {
     netlifyIdentity.init();
 
+    if (user || netlifyIdentity.currentUser()) {
+      setUser(netlifyIdentity.currentUser());
+      router.push('/protected');
+    }
+
     netlifyIdentity.on('login', (user) => {
       setUser(user);
       router.push('/protected'); // Redirect to protected page after login
@@ -34,10 +39,11 @@ export default function Index({ posts, globalData }) {
   }, [router]);
   
   return (
+    <>
+    <SEO title={globalData.name} description={globalData.blogTitle} />
+    <Header name={globalData.name} />
     <Layout>
-      <SEO title={globalData.name} description={globalData.blogTitle} />
-      <Header name={globalData.name} />
-      <main className="w-full">
+      <main className="w-full  p-9">
         <h1 className="mb-12 text-3xl text-center lg:text-5xl">
           {globalData.blogTitle}
         </h1>
@@ -80,6 +86,7 @@ export default function Index({ posts, globalData }) {
         className="absolute bottom-0 opacity-20 dark:opacity-10"
       />
     </Layout>
+    </>
   );
 }
 

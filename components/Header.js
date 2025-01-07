@@ -3,14 +3,31 @@ import NetlifyIdentityProvider from './NetlifyIdentityProvider';
 
 export default function Header({ name }) {
   return (
-    <header className="pt-20 pb-12">
-      <div className="block w-12 h-12 mx-auto mb-4 rounded-full bg-gradient-conic from-gradient-3 to-gradient-4" />
-      <p className="text-2xl text-center dark:text-white">
-        <Link href="/">
-          {name}
-        </Link>
-        <NetlifyIdentityProvider />
-      </p>
+    <header className="bg-gradient-to-r from-blue-500 to-green-500 pt-4 pb-4 text-white">
+      <div className="container mx-auto px-6">
+        {/* Flexbox to align elements horizontally and space them out */}
+        <div className="flex items-center justify-between w-full">
+          
+          {/* Logo/Avatar */}
+          <div className="w-16 h-16 rounded-full bg-gradient-to-r from-yellow-400 to-pink-500 flex items-center justify-center">
+            <span className="text-xl font-bold text-white">🌟</span>
+          </div>
+
+          {/* Title */}
+          <div className="flex-1 text-center">
+            <h1 className="text-3xl font-semibold">{name}</h1>
+            <p className="text-lg text-center opacity-80">Welcome to the best place for amazing content!</p>
+          </div>
+
+          {/* Navigation and Login Button */}
+          <div className="flex items-center space-x-4">
+            <Link href="/" className="text-lg font-semibold text-white hover:text-gray-200 transition duration-300 ease-in-out">
+              Go to Homepage
+            </Link>
+            <NetlifyIdentityProvider />
+          </div>
+        </div>
+      </div>
     </header>
   );
 }
