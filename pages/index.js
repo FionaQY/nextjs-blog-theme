@@ -13,6 +13,13 @@ import { useUser } from '@auth0/nextjs-auth0/client';
 
 export default function Index({ posts, globalData }) {
   const {user, error, isLoading} = useUser();
+  const router = useRouter();
+
+  useEffect(()=> {
+    if (user) {
+      router.push('/protected');
+    }
+  })
 
   if (isLoading) {
     return (
@@ -29,14 +36,6 @@ export default function Index({ posts, globalData }) {
       </div>
     );
   }
-
-  const router = useRouter();
-  
-  useEffect(()=> {
-    if (user) {
-      router.push('/protected');
-    }
-  })
 
   return (
     <>

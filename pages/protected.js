@@ -42,7 +42,7 @@ const ProtectedPage = ({ globalData }) => {
     } else {
       router.push('/');
     }
-  }, [router]);
+  }, [user, router]);
 
   if (isLoading) {
     return (
