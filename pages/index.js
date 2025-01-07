@@ -7,41 +7,41 @@ import Layout, { GradientBackground } from '../components/Layout';
 import ArrowIcon from '../components/ArrowIcon';
 import { getGlobalData } from '../utils/global-data';
 import SEO from '../components/SEO';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import netlifyIdentity from "netlify-identity-widget"
+import { useUser } from '@auth0/nextjs-auth0/client';
 
 export default function Index({ posts, globalData }) {
-  const [user, setUser] = useState(null);
+  const {user, error, isLoading} = useUser();
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <div className="loader">Loading...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex justify-center items-center min-h-screen text-red-500">
+        <p>{error.message}</p>
+      </div>
+    );
+  }
+
   const router = useRouter();
-
-  useEffect(() => {
-    netlifyIdentity.init();
-
-    if (user || netlifyIdentity.currentUser()) {
-      setUser(netlifyIdentity.currentUser());
+  
+  useEffect(()=> {
+    if (user) {
       router.push('/protected');
     }
+  })
 
-    netlifyIdentity.on('login', (user) => {
-      setUser(user);
-      router.push('/protected'); // Redirect to protected page after login
-    });
-
-    netlifyIdentity.on('logout', () => {
-      setUser(null);
-    });
-
-    return () => {
-      netlifyIdentity.off('login');
-      netlifyIdentity.off('logout');
-    };
-  }, [router]);
-  
   return (
     <>
     <SEO title={globalData.name} description={globalData.blogTitle} />
-    <Header name={globalData.name} />
+    <Header name={globalData.name} auth0={'login'}/>
     <Layout>
       <main className="w-full  p-9">
         <h1 className="mb-12 text-3xl text-center lg:text-5xl">

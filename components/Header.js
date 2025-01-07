@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import NetlifyIdentityProvider from './NetlifyIdentityProvider';
 
-export default function Header({ name }) {
+export default function Header({ name, auth0 }) {
+  // let link = `/api/auth/${auth0}`;
   return (
     <header className="bg-gradient-to-r from-blue-500 to-green-500 pt-4 pb-4 text-white">
       <div className="container mx-auto px-6">
@@ -24,7 +24,7 @@ export default function Header({ name }) {
             <Link href="/" className="text-lg font-semibold text-white hover:text-gray-200 transition duration-300 ease-in-out">
               Go to Homepage
             </Link>
-            <NetlifyIdentityProvider />
+            <a href={`/api/auth/${auth0}`}>Login/Logout</a>;
           </div>
         </div>
       </div>

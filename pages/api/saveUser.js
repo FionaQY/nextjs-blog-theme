@@ -24,12 +24,11 @@ export default async function handler(req, res) {
 
         var existingUser = await collection.findOne({_id});
         if (!existingUser) {
-            await collection.insertOne({_id, email, name, streak: 0, lastDay: null, totalStudyTime: 0});
+            await collection.insertOne({_id, name, streak: 0, lastDay: null, totalStudyTime: 0});
             existingUser = await collection.findOne({_id});
         } else {
             const decksCollection = db.collection('decks');
             decks = await decksCollection.find({userId: _id}).toArray();
-            console.log(decks);
         }
         res.status(200).json({... existingUser, decks: decks});
     } catch (err) {
