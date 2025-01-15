@@ -92,6 +92,9 @@ const ProtectedPage = ({ globalData }) => {
                 : 'grid-cols-3'
             }`}
           >
+            <button onClick={() => router.push('/newdeck')}>
+              Add New Deck
+            </button>
             {userInfo && userInfo.decks && userInfo.decks.length > 0 ? (
               userInfo.decks.map((deck, index) => (
                 <div
@@ -102,6 +105,7 @@ const ProtectedPage = ({ globalData }) => {
                   <div className="text-sm text-gray-600">
                     <p><strong>Description:</strong> {deck.description || ""}</p>
                     <p><strong>Language:</strong> {deck.language || ""}</p>
+                    <p><strong>Number of cards:</strong> {deck.number || ""}</p>
                     <p><strong>Details:</strong> {deck.details || ""}</p>
                     <p><strong>Last Practiced:</strong> {deck.lastDay || "No record found :("}</p>
                   </div>

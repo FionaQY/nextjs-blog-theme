@@ -1,7 +1,6 @@
 import Link from 'next/link';
 
 export default function Header({ name, auth0 }) {
-  // let link = `/api/auth/${auth0}`;
   return (
     <header className="bg-gradient-to-r from-blue-500 to-green-500 pt-4 pb-4 text-white">
       <div className="container mx-auto px-6">
