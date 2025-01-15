@@ -135,7 +135,7 @@ const NewDeck = ({ globalData }) => {
                 </div>
               ))
             ) : (
-              <p>No cards added yet. Click "Add New Card" to get started.</p>
+              <p>No cards added yet. Click &quot;Add New Card&quot; to get started.</p>
             )}
             <button
               className="mt-4 bg-green-500 text-white p-2 rounded w-full"
